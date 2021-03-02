@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -40,10 +41,10 @@ function row(item: IPreparedObjectProps) {
 
     return (
         <View style={styles.row}>
-            <Text style={styles.column}>{item.name}</Text>
-            <Text style={styles.column}>{item.highestBid}</Text>
-            <Text style={styles.column}>{item.last}</Text>
-            <Text style={styles.column}>{item.percentChange}</Text>
+            <Text style={[styles.column, styles.name]}>{item.name}</Text>
+            <Text style={[styles.column, styles.value]}>{item.highestBid}</Text>
+            <Text style={[styles.column, styles.value]}>{item.last}</Text>
+            <Text style={[styles.column, styles.value]}>{item.percentChange}</Text>
         </View>
     );
 }
@@ -64,18 +65,22 @@ export function Table() {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<IPreparedObjectProps[]>([]);
 
-    useEffect(() => {
+    const fetchData = useCallback(() => {
         fetch('https://poloniex.com/public?command=returnTicker')
             .then((response) => response.json())
             .then((json) => prepareData(json))
             .then((data) => setData(data))
             .catch((error) => console.error(error))
-            .finally(() => setLoading(false));
-    }, []);
+            .finally(() => setLoading(false))
+    }, [])
+
+    useFocusEffect(() => {
+        setInterval(fetchData, 5000);
+    })
 
     return (
         <View style={styles.main}>
-            {isLoading ? <ActivityIndicator /> : (
+            {isLoading ? <ActivityIndicator color={Palette.DODGER_BLUE} size='large' /> : (
                 <ScrollView horizontal>
                     <FlatList
                         // pagingEnabled={true}
@@ -85,6 +90,7 @@ export function Table() {
                         renderItem={(item) => (
                             row(item.item)
                         )}
+                        stickyHeaderIndices={[0]}
                     />
                 </ScrollView>
             )}
@@ -103,11 +109,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: Palette.GRAY,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
+        backgroundColor: Palette.WHITE,
     },
     column: {
         width: 150
@@ -117,5 +126,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: Palette.DODGER_BLUE,
+    },
+    name: {
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: Palette.BLACK,
+    },
+    value: {
+        fontFamily: 'Roboto',
+        fontWeight: '500',
+        fontSize: 16,
+        color: Palette.HARLEQUIN,
     }
 });

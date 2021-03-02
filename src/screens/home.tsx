@@ -6,37 +6,48 @@ import {
   View,
   StatusBar,
   Button,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Palette } from '../styles/palette/palette';
 
 export function Home({ navigation }: any) {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
 
-          <Button
-            title="Go to Details"
-            onPress={() => navigation.navigate('Details')}
-          />
-          <View style={styles.body}>
 
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <View style={styles.body}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Details')}
+          style={styles.button}
+        >
+          <Text style={styles.text}>Go to Details</Text>
+        </TouchableOpacity>
+
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   body: {
+    flex: 1,
     backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  button: {
+    padding: 40,
+    backgroundColor: Palette.DODGER_BLUE,
+    borderRadius: 20,
+  },
+  text: {
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: Palette.WHITE,
+  }
 });
