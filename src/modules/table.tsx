@@ -56,7 +56,7 @@ export function Table() {
       setLoading(true);
       setError(false);
       let response = await fetch(
-        'https://poloniex.com/public?command=returnTickers',
+        'https://poloniex.com/public?command=returnTicker',
       );
       let json = await response.json();
       if (json['error']) {
