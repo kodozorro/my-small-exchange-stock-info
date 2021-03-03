@@ -21,10 +21,10 @@ export function Home({ navigation }: any) {
 
       <View style={styles.body}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Details')}
+          onPress={() => navigation.navigate('Котировки')}
           style={styles.button}
         >
-          <Text style={styles.text}>Go to Details</Text>
+          <Text style={styles.text}>К котировкам</Text>
         </TouchableOpacity>
 
       </View>
