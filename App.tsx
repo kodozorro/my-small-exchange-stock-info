@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Home } from './src/screens/home';
-import { DetailsScreen } from './src/screens/details';
+import {NavigationContainer} from '@react-navigation/native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {Home} from './src/screens/home';
+import {DetailsScreen} from './src/screens/details';
 
 const Tab = createMaterialTopTabNavigator();
 
 function App() {
-
   return (
     <NavigationContainer>
       <Tab.Navigator

@@ -1,19 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-} from 'react-native';
-import { Table } from '../modules/table';
-
+import {Table} from '../modules/Table';
 
 export function DetailsScreen() {
-
-  return (
-    <Table />
-  );
+  return <Table />;
 }
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'
-  },
-});
