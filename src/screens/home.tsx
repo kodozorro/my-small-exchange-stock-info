@@ -1,30 +1,24 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   StatusBar,
-  Button,
   TouchableOpacity,
   Text,
 } from 'react-native';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { AnimatedTypingText } from '../modules/AnimatedTypingText';
-import { Palette } from '../styles/palette/palette';
+import {AnimatedTypingText} from '../modules/AnimatedTypingText';
+import {Palette} from '../styles/palette/palette';
 
 const GREETINGS_TEXT = `Wake up Neo... 
-In this small application you can see the latest quote values from the Poloniex exchange.`
+In this small application you can see the latest quote values from the Poloniex exchange.`;
 
-export function Home({ navigation }: any) {
+export function Home({navigation}: any) {
   return (
     <>
       <StatusBar barStyle="light-content" />
 
-
       <View style={styles.body}>
-
         <AnimatedTypingText
           text={GREETINGS_TEXT}
           TextColor={Palette.SPRING_GREEN}
@@ -33,11 +27,9 @@ export function Home({ navigation }: any) {
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Котировки')}
-          style={styles.button}
-        >
+          style={styles.button}>
           <Text style={styles.text}>Red pill</Text>
         </TouchableOpacity>
-
       </View>
     </>
   );

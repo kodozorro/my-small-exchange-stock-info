@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,9 +7,9 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import { Palette } from '../styles/palette/palette';
-import { prepareData, useInterval } from '../utils/utils';
-import { Row } from './Row';
+import {Palette} from '../styles/palette/palette';
+import {prepareData, useInterval} from '../utils/utils';
+import {Row} from './Row';
 
 export interface IExchangeProps {
   [key: string]: {
@@ -51,17 +51,19 @@ export function Table() {
         'https://poloniex.com/public?command=returnTicker',
       );
       let json = await response.json();
-      if (json['error']) {
-        console.log(json['error']);
+      if (json.error) {
+        console.log(json.error);
         setError(true);
 
         // For rendering flatList without re-render
-        setData([{
-          last: '',
-          highestBid: '',
-          percentChange: '',
-          name: '',
-        }]);
+        setData([
+          {
+            last: '',
+            highestBid: '',
+            percentChange: '',
+            name: '',
+          },
+        ]);
         setLoading(false);
       } else {
         const preparedData = prepareData(json);
@@ -84,23 +86,23 @@ export function Table() {
       {isLoading ? (
         <ActivityIndicator color={Palette.SPRING_GREEN} size="large" />
       ) : (
-          <ScrollView horizontal>
-            <FlatList
-              // pagingEnabled={true}
-              ListHeaderComponent={<Header />}
-              data={data}
-              keyExtractor={(item, index) => item.name}
-              renderItem={(item) => {
-                return !error ? (
-                  <Row item={item.item} />
-                ) : (
-                    <Text style={styles.error}>Ошибка, попробуйте позже</Text>
-                  );
-              }}
-              stickyHeaderIndices={[0]}
-            />
-          </ScrollView>
-        )}
+        <ScrollView horizontal>
+          <FlatList
+            // pagingEnabled={true}
+            ListHeaderComponent={<Header />}
+            data={data}
+            keyExtractor={(item, index) => item.name}
+            renderItem={(item) => {
+              return !error ? (
+                <Row item={item.item} />
+              ) : (
+                <Text style={styles.error}>Ошибка, попробуйте позже</Text>
+              );
+            }}
+            stickyHeaderIndices={[0]}
+          />
+        </ScrollView>
+      )}
     </View>
   );
 }
